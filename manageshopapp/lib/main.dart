@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'screens/homeScreen.dart';
 
-
 void main() {
   runApp(const MyApp());
 }

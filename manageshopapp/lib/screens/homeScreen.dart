@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:manageshopapp/util/constants.dart';
+import 'package:flutter_launcher_icons/constants.dart';
+import 'package:manageshopapp/screens/shutterOperationScreen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -6,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _pressedButton = '';
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildButton("Kepenki kapat/aç"),
+              _buildButton("Kepenki kapat/aç",ButtonType.CLOSE_SHUTTER),
               SizedBox(height: 20),
-              _buildButton("Seçenek 2"),
+              _buildButton("Seçenek 2",ButtonType.OPTION_2),
               SizedBox(height: 20),
-              _buildButton("Seçenek 3"),
+              _buildButton("Seçenek 3",ButtonType.OPTION_3),
               SizedBox(height: 20),
-              _buildButton("Seçenek 4"),
+              _buildButton("Seçenek 4",ButtonType.OPTION_4),
             ],
           ),
         ),
@@ -39,12 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildButton(String label) {
+  Widget _buildButton(String label,ButtonType buttonType) {
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          _pressedButton = label;
-        });
+        switch (buttonType) {
+          case ButtonType.CLOSE_SHUTTER:
+            navigateShutterCloseScreen();
+            
+            break;
+          default:
+          print('Unknown button type : ${buttonType.name}');
+        }
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
@@ -59,5 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
         style: TextStyle(fontSize: 16),
       ),
     );
+  }
+  
+  void navigateShutterCloseScreen() {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => ShutterOperationScreen()),
+      );    
   }
 }
